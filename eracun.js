@@ -117,7 +117,7 @@ var pesmiIzKosarice = function(zahteva, callback) {
     })
   }
 }
-
+    
 streznik.get('/kosarica', function(zahteva, odgovor) {
   pesmiIzKosarice(zahteva, function(pesmi) {
     if (!pesmi)
@@ -167,11 +167,16 @@ streznik.get('/izpisiRacun/:oblika', function(zahteva, odgovor) {
       odgovor.send("<p>V košarici nimate nobene pesmi, \
         zato računa ni mogoče pripraviti!</p>");
     } else {
-      odgovor.setHeader('content-type', 'text/xml');
-      odgovor.render('eslog', {
+      strankaIzRacuna(zahteva.session.idStranke,function(napaka,podatki){
+        
+        odgovor.setHeader('content-type', 'text/xml');
+        odgovor.render('eslog', {
         vizualiziraj: zahteva.params.oblika == 'html' ? true : false,
-        postavkeRacuna: pesmi
-      })  
+        postavkeRacuna: pesmi,
+        oseba:podatki
+      }) 
+      })
+       
     }
   })
 })
@@ -238,11 +243,15 @@ streznik.get('/prijava', function(zahteva, odgovor) {
 
 // Prikaz nakupovalne košarice za stranko
 streznik.post('/stranka', function(zahteva, odgovor) {
+  zahteva.session.stranka=true;
   var form = new formidable.IncomingForm();
   
   form.parse(zahteva, function (napaka1, polja, datoteke) {
-    zahteva.session.stranka=true;
-    odgovor.redirect('/')
+    
+    zahteva.session.idStranke=polja.seznamStrank;
+    console.log(polja);
+    console.log("Session value od IDStranke je: " + zahteva.session.idStranke);
+    odgovor.redirect('/');
   });
 })
 
