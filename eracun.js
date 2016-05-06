@@ -133,7 +133,8 @@ var pesmiIzRacuna = function(racunId, callback) {
     Track.TrackId IN (SELECT InvoiceLine.TrackId FROM InvoiceLine, Invoice \
     WHERE InvoiceLine.InvoiceId = Invoice.InvoiceId AND Invoice.InvoiceId = " + racunId + ")",
     function(napaka, vrstice) {
-      console.log(vrstice);
+      //console.log(vrstice);
+      callback(napaka, vrstice);
     })
 }
 
@@ -142,13 +143,41 @@ var strankaIzRacuna = function(racunId, callback) {
     pb.all("SELECT Customer.* FROM Customer, Invoice \
             WHERE Customer.CustomerId = Invoice.CustomerId AND Invoice.InvoiceId = " + racunId,
     function(napaka, vrstice) {
-      console.log(vrstice);
+      //console.log(vrstice);
+
+      callback(napaka, vrstice);
+      //console.log("ID kupca je: " + vrstice[0].CustomerId );
     })
 }
 
 // Izpis računa v HTML predstavitvi na podlagi podatkov iz baze
 streznik.post('/izpisiRacunBaza', function(zahteva, odgovor) {
-  odgovor.end();
+  // najprej ugotovimo idRacuna
+  var idRacuna=0;
+  var form = new formidable.IncomingForm();
+  form.parse(zahteva, function (napaka1, polja, datoteke) {
+    //console.log(polja.seznamRacunov);
+    idRacuna=parseInt(polja.seznamRacunov);
+    //console.log(idRacuna);
+    strankaIzRacuna(idRacuna,function(napaka, podatki){
+    pesmiIzRacuna(parseInt(idRacuna),function(napaka1, pesmi){
+    //console.log("TEST--------------------------------------------");
+    //console.log(podatki);
+        
+    //console.log("KONEC--------------------------------------------");
+    odgovor.setHeader('content-type', 'text/xml');
+    odgovor.render('eslog',{oseba:podatki, postavkeRacuna:pesmi,vizualiziraj:true})
+      });
+      
+  });
+  });
+  // zgeneriraj html racun
+  
+  
+  // <%= oseba[0].FirstName %>
+  //odgovor.end();
+  //strankaIzRacuna(1, function() {console.log("Izvedena poizvedba!")});
+  //odgovor.redirect("/izpisiRacun/html");
 })
 
 // Izpis računa v HTML predstavitvi ali izvorni XML obliki
@@ -161,6 +190,9 @@ streznik.get('/izpisiRacun/:oblika', function(zahteva, odgovor) {
         zato računa ni mogoče pripraviti!</p>");
     } else {
       odgovor.setHeader('content-type', 'text/xml');
+      /*console.log("TEST--------------------------------------------");
+      console.log(pesmi);
+      console.log("KONEC--------------------------------------------");*/
       odgovor.render('eslog', {
         vizualiziraj: zahteva.params.oblika == 'html' ? true : false,
         postavkeRacuna: pesmi
@@ -171,7 +203,8 @@ streznik.get('/izpisiRacun/:oblika', function(zahteva, odgovor) {
 
 // Privzeto izpiši račun v HTML obliki
 streznik.get('/izpisiRacun', function(zahteva, odgovor) {
-  odgovor.redirect('/izpisiRacun/html')
+
+  //odgovor.redirect('/izpisiRacun/html')
 })
 
 // Vrni stranke iz podatkovne baze
@@ -231,10 +264,7 @@ streznik.get('/prijava', function(zahteva, odgovor) {
 // Prikaz nakupovalne košarice za stranko
 streznik.post('/stranka', function(zahteva, odgovor) {
   var form = new formidable.IncomingForm();
-  
-  form.parse(zahteva, function (napaka1, polja, datoteke) {
-    odgovor.redirect('/')
-  });
+
 })
 
 // Odjava stranke
