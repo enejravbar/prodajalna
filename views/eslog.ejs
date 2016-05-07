@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <% if (vizualiziraj) { %>
 <?xml-stylesheet type="text/xsl" href="../eSLOG/vizualizacija.xslt"?>
 <% } %>
@@ -123,6 +123,8 @@
 				<Tekst2>01</Tekst2>
 			</Besedilo>
 		</PoljubnoBesedilo>
+		
+		
 		<!-- izdajatelj -->
 		<PodatkiPodjetja>
 			<NazivNaslovPodjetja>
@@ -173,61 +175,61 @@
 			<NazivNaslovPodjetja>
 				<VrstaPartnerja>BY</VrstaPartnerja>
 				<NazivPartnerja>
-					<NazivPartnerja1>Univerza v Ljubljani, </NazivPartnerja1>
-					<NazivPartnerja2>Fakulteta za računalništvo in informatiko</NazivPartnerja2>
-					<NazivPartnerja3>Laboratorij za </NazivPartnerja3>
-					<NazivPartnerja4>podatkovne tehnologije</NazivPartnerja4>
+					<NazivPartnerja1><%= oseba[0].FirstName %>  <%= oseba[0].LastName %></NazivPartnerja1>
+					<NazivPartnerja2><%= oseba[0].Company %></NazivPartnerja2>
+					<NazivPartnerja3></NazivPartnerja3>
+					<NazivPartnerja4></NazivPartnerja4>
 				</NazivPartnerja>
 				<Ulica>
-					<Ulica1>Večna pot </Ulica1>
-					<Ulica2>113</Ulica2>
-					<Ulica3>nadstropje 2, kabinet R2.49</Ulica3>
+					<Ulica1><%= oseba[0].Address %></Ulica1>
+					<!--<Ulica2>1</Ulica2>
+					<Ulica3></Ulica3> -->
 				</Ulica>
-				<Kraj>Ljubljana</Kraj>
-				<NazivDrzave>Slovenija</NazivDrzave>
-				<PostnaStevilka>1000</PostnaStevilka>
-				<KodaDrzave>SI</KodaDrzave>
+				<Kraj><%= oseba[0].City %></Kraj>
+				<NazivDrzave><%= oseba[0].Country %></NazivDrzave>
+				<PostnaStevilka><%= oseba[0].PostalCode %></PostnaStevilka>
+				
 			</NazivNaslovPodjetja>
 			<FinancniPodatkiPodjetja>
 				<BancniRacun>
-					<StevilkaBancnegaRacuna>SI56020120090111333</StevilkaBancnegaRacuna>
-					<NazivBanke1>Moja banka d.d.</NazivBanke1>
-					<NazivBanke2>Podružnica center</NazivBanke2>
-					<BIC>LJBASI2XXXX</BIC>
+					<StevilkaBancnegaRacuna></StevilkaBancnegaRacuna>
+					<NazivBanke1></NazivBanke1>
+					<NazivBanke2></NazivBanke2>
+					<BIC></BIC>
 				</BancniRacun>
 			</FinancniPodatkiPodjetja>
 			<ReferencniPodatkiPodjetja>
-				<VrstaPodatkaPodjetja>VA</VrstaPodatkaPodjetja>
-				<PodatekPodjetja>SI67909027</PodatekPodjetja>
+				<VrstaPodatkaPodjetja></VrstaPodatkaPodjetja>
+				<PodatekPodjetja></PodatekPodjetja>
 			</ReferencniPodatkiPodjetja>
 			<ReferencniPodatkiPodjetja>
-				<VrstaPodatkaPodjetja>GN</VrstaPodatkaPodjetja>
-				<PodatekPodjetja>1627023</PodatekPodjetja>
+				<VrstaPodatkaPodjetja></VrstaPodatkaPodjetja>
+				<PodatekPodjetja></PodatekPodjetja>
 			</ReferencniPodatkiPodjetja>
 			<ReferencniPodatkiPodjetja>
-				<VrstaPodatkaPodjetja>IT</VrstaPodatkaPodjetja>
-				<PodatekPodjetja>444-55</PodatekPodjetja>
+				<VrstaPodatkaPodjetja></VrstaPodatkaPodjetja>
+				<PodatekPodjetja></PodatekPodjetja>
 			</ReferencniPodatkiPodjetja>
 			<KontaktiPodjetja>
 				<KontaktnaOseba>
-					<ImeOsebe>Dejan Lavbič</ImeOsebe>
+					<ImeOsebe><%= oseba[0].FirstName %> <%= oseba[0].LastName %> (<%= oseba[0].Email %>)</ImeOsebe>
 				</KontaktnaOseba>
 				<Komunikacije>
-					<StevilkaKomunikacije>38614798000</StevilkaKomunikacije>
+					<StevilkaKomunikacije><%= oseba[0].Phone %></StevilkaKomunikacije>
 					<VrstaKomunikacije>TE</VrstaKomunikacije>
 				</Komunikacije>
 				<Komunikacije>
-					<StevilkaKomunikacije>38612419350</StevilkaKomunikacije>
+					<StevilkaKomunikacije><%= oseba[0].Fax %></StevilkaKomunikacije>
 					<VrstaKomunikacije>FX</VrstaKomunikacije>
 				</Komunikacije>
 			</KontaktiPodjetja>
 		</PodatkiPodjetja>
-		<!-- prejemnik -->
+		<!-- prejemnik-->
 		<PodatkiPodjetja>
 			<NazivNaslovPodjetja>
 				<VrstaPartnerja>IV</VrstaPartnerja>
 				<NazivPartnerja>
-					<NazivPartnerja1>Prejemnik d.d.</NazivPartnerja1>
+					<NazivPartnerja1></NazivPartnerja1>
 				</NazivPartnerja>
 				<Ulica>
 					<Ulica1>Mali dol 13</Ulica1>
