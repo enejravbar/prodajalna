@@ -215,12 +215,12 @@
 					<ImeOsebe><%= oseba[0].FirstName %> <%= oseba[0].LastName %> (<%= oseba[0].Email %>)</ImeOsebe>
 				</KontaktnaOseba>
 				<Komunikacije>
-					<StevilkaKomunikacije>38614798000</StevilkaKomunikacije>
+					<StevilkaKomunikacije><%= oseba[0].Phone %></StevilkaKomunikacije>
 					<VrstaKomunikacije>TE</VrstaKomunikacije>
 				</Komunikacije>
 				<Komunikacije>
-					<StevilkaKomunikacije><%= oseba[0].Phone %></StevilkaKomunikacije>
-					<VrstaKomunikacije><%= oseba[0].Fax %></VrstaKomunikacije>
+					<StevilkaKomunikacije><%= oseba[0].Fax %></StevilkaKomunikacije>
+					<VrstaKomunikacije>FX</VrstaKomunikacije>
 				</Komunikacije>
 			</KontaktiPodjetja>
 		</PodatkiPodjetja>
