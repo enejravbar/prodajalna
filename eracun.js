@@ -164,13 +164,12 @@ streznik.post('/izpisiRacunBaza', function(zahteva, odgovor) {
   var idRacuna=0;
   var form = new formidable.IncomingForm();
   form.parse(zahteva, function (napaka1, polja, datoteke) {
-    //console.log(polja.seznamRacunov);
     idRacuna=parseInt(polja.seznamRacunov);
     //console.log(idRacuna);
     strankaIzRacuna(idRacuna,function(napaka, podatki){
     pesmiIzRacuna(parseInt(idRacuna),function(napaka1, pesmi){
     //console.log("TEST--------------------------------------------");
-    //console.log(podatki);
+    console.log(podatki);
         
     //console.log("KONEC--------------------------------------------");
     odgovor.setHeader('content-type', 'text/xml');
