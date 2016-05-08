@@ -167,7 +167,7 @@ var strankaIzRacuna = function(racunId, callback) {
 
 var pridobiPodatkeStranke = function(strankaID, callback) {
     pb.all("SELECT Customer.* FROM Customer, Invoice \
-            WHERE Customer.CustomerId=" + strankaID+" AND Invoice.CustomerId ="+strankaID,
+            WHERE Customer.CustomerId=" + strankaID,
     function(napaka, vrstice) {
       //console.log(vrstice);
 
@@ -261,7 +261,7 @@ var vrniRacune = function(callback) {
 streznik.post('/prijava', function(zahteva, odgovor) {
   
   var form = new formidable.IncomingForm();
-  console.log(zahteva+"");
+  //console.log(zahteva+"");
   form.parse(zahteva, function (napaka1, polja, datoteke) {
       var napaka2 = false;
       //$("#Registracija").click(function() {
@@ -323,8 +323,8 @@ streznik.post('/stranka', function(zahteva, odgovor) {
   form.parse(zahteva, function (napaka1, polja, datoteke) {
     
     zahteva.session.idStranke=polja.seznamStrank;
-    console.log(polja);
-    console.log("Session value od IDStranke je: " + zahteva.session.idStranke);
+    //console.log(polja);
+    //console.log("Session value od IDStranke je: " + zahteva.session.idStranke);
     odgovor.redirect('/');
   });
 })
