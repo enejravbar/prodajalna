@@ -198,7 +198,7 @@ var vrniRacune = function(callback) {
 // Registracija novega uporabnika
 streznik.post('/prijava', function(zahteva, odgovor) {
   var form = new formidable.IncomingForm();
-  console.log(zahteva+"");
+  //console.log(zahteva+"");
   form.parse(zahteva, function (napaka1, polja, datoteke) {
       var napaka2 = false;
       //$("#Registracija").click(function() {
