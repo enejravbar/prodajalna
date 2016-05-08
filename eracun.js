@@ -167,10 +167,10 @@ var strankaIzRacuna = function(racunId, callback) {
 
 var pridobiPodatkeStranke = function(strankaID, callback) {
     pb.all("SELECT Customer.* FROM Customer, Invoice \
-            WHERE Customer.CustomerId=" + strankaID+" AND Invoice.CustomerId ="+strankaID,
+            WHERE Customer.CustomerId=" + strankaID,
     function(napaka, vrstice) {
       //console.log(vrstice);
-
+      //+" AND Invoice.CustomerId ="+strankaID
       callback(napaka, vrstice);
       //console.log("ID kupca je: " + vrstice[0].CustomerId );
     })
@@ -218,7 +218,8 @@ streznik.get('/izpisiRacun/:oblika', function(zahteva, odgovor) {
       pridobiPodatkeStranke(zahteva.session.idStranke,function(napaka,podatki){
         
         odgovor.setHeader('content-type', 'text/xml');
-        
+        //console.log("TEST---------------");
+        //console.log(podatki);
         odgovor.render('eslog', {
         vizualiziraj: zahteva.params.oblika == 'html' ? true : false,
         postavkeRacuna: pesmi,
@@ -261,7 +262,7 @@ var vrniRacune = function(callback) {
 streznik.post('/prijava', function(zahteva, odgovor) {
   
   var form = new formidable.IncomingForm();
-  console.log(zahteva+"");
+  //console.log(zahteva+"");
   form.parse(zahteva, function (napaka1, polja, datoteke) {
       var napaka2 = false;
       //$("#Registracija").click(function() {
@@ -274,7 +275,7 @@ streznik.post('/prijava', function(zahteva, odgovor) {
           VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
         //TODO: add fields and finalize
         stmt.run(polja.FirstName, polja.LastName, polja.Company, polja.Address, polja.City, polja.State, polja.Country, polja.PostalCode, polja.Phone, polja.Fax, polja.Email, 3); 
-  
+        console.log(polja.FirstName + " | " + polja.LastName+ " | " + polja.Company+ " | " + polja.Address+ " | " +  polja.City+ " | " +polja.State+ " | " + polja.Country+ " | " +polja.PostalCode+ " | " + polja.Phone+ " | " +polja.Fax+ " | " + polja.Email);
         stmt.finalize();
         //odgovor.redirect('/');
         
@@ -323,8 +324,8 @@ streznik.post('/stranka', function(zahteva, odgovor) {
   form.parse(zahteva, function (napaka1, polja, datoteke) {
     
     zahteva.session.idStranke=polja.seznamStrank;
-    console.log(polja);
-    console.log("Session value od IDStranke je: " + zahteva.session.idStranke);
+    //console.log(polja);
+    //console.log("Session value od IDStranke je: " + zahteva.session.idStranke);
     odgovor.redirect('/');
   });
 })
