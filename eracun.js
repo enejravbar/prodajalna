@@ -169,7 +169,7 @@ streznik.post('/izpisiRacunBaza', function(zahteva, odgovor) {
     strankaIzRacuna(idRacuna,function(napaka, podatki){
     pesmiIzRacuna(parseInt(idRacuna),function(napaka1, pesmi){
     //console.log("TEST--------------------------------------------");
-    console.log(podatki);
+    //console.log(podatki);
         
     //console.log("KONEC--------------------------------------------");
     odgovor.setHeader('content-type', 'text/xml');
